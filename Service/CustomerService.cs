@@ -20,13 +20,13 @@ namespace CarConnect.Service
         {
             try
             {
-                Console.WriteLine("Enter the CustomerId");
-                int id = int.Parse(Console.ReadLine());
-                List<Customer> list = _customerRepository.GetCustomerById(id);
+                
+                List<Customer> list = _customerRepository.GetCustomerById();
 
                 if (list == null || list.Count == 0)
                 {
-                    throw new CustomerNotFoundException($"Customer with ID {id} was not found.");
+                    //Console.ForegroundColor = ConsoleColor.DarkRed;
+                    throw new CustomerNotFoundException($"Customer was not found.");
                 }
 
                 foreach (Customer customer in list)
@@ -36,15 +36,21 @@ namespace CarConnect.Service
             }
             catch (CustomerNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input. Please enter a valid CustomerId.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
         }
@@ -69,11 +75,15 @@ namespace CarConnect.Service
             }
             catch (CustomerNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -97,6 +107,7 @@ namespace CarConnect.Service
                 string email = Console.ReadLine();
                 if (!IsValidEmail(email))
                 {
+                    //Console.ForegroundColor = ConsoleColor.DarkRed;
                     throw new InvalidEmailFormatException("Invalid email format. Please enter a valid email address.");
                 }
                 customer.Email = email;
@@ -126,24 +137,35 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Registration successful");
+                    Console.ForegroundColor = ConsoleColor.White;
+
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Registration not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (InvalidInputException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -173,9 +195,13 @@ namespace CarConnect.Service
                     throw new InvalidInputException("LastName is required");
 
                 Console.WriteLine("Enter the updated email");
-                customer.Email = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(customer.Email))
-                    throw new InvalidInputException("Email is required");
+               
+                string email = Console.ReadLine();
+                if (!IsValidEmail(email))
+                {
+                    throw new InvalidEmailFormatException("Invalid email format. Please enter a valid email address.");
+                }
+                customer.Email = email;
 
                 Console.WriteLine("Enter the updated Phoneno");
                 customer.PhoneNumber = Console.ReadLine();
@@ -202,29 +228,121 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Update successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Update not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (InvalidInputException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
         }
 
-        public void DeleteCustomer()
+        public void UpdateCustomerAuto()
+        {
+            try
+            {
+                Customer customer = new Customer();
+
+                
+
+                Console.WriteLine("Enter the updated firstname");
+                customer.FirstName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.FirstName))
+                    throw new InvalidInputException("FirstName is required");
+
+                Console.WriteLine("Enter the updated lastname");
+                customer.LastName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.LastName))
+                    throw new InvalidInputException("LastName is required");
+
+                Console.WriteLine("Enter the updated email");
+                string email = Console.ReadLine();
+                if (!IsValidEmail(email))
+                {
+                    throw new InvalidEmailFormatException("Invalid email format. Please enter a valid email address.");
+                }
+                customer.Email = email;
+
+                Console.WriteLine("Enter the updated Phoneno");
+                customer.PhoneNumber = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.PhoneNumber))
+                    throw new InvalidInputException("PhoneNumber is required");
+
+                Console.WriteLine("Enter the updated Address");
+                customer.Address = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.Address))
+                    throw new InvalidInputException("Address is required");
+
+                Console.WriteLine("Enter the updated Username");
+                customer.Username = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.Username))
+                    throw new InvalidInputException("Username is required");
+
+                Console.WriteLine("Enter the updated password");
+                customer.Password = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(customer.Password))
+                    throw new InvalidInputException("Password is required");
+
+                customer.RegistrationDate = DateTime.Now;
+                int result = _customerRepository.UpdateCustomerAuto(customer);
+
+                if (result > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Update successful");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Update not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            catch (InvalidInputException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+
+            public void DeleteCustomer()
         {
             try
             {
@@ -234,24 +352,33 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Delete Customer successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+
                     throw new CustomerNotFoundException($"Customer with ID {id} was not found.");
                 }
             }
             catch (CustomerNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input. Please enter a valid CustomerId.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

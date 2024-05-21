@@ -27,24 +27,34 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Delete Admin successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Delete Admin not successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input. Please enter a valid Admin Id.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (AdminNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -52,13 +62,14 @@ namespace CarConnect.Service
         {
             try
             {
-                Console.WriteLine("Enter the AdminId");
-                int id = int.Parse(Console.ReadLine());
+               
 
-                List<Admin> list = _adminRepository.GetAdminById(id);
+                List<Admin> list = _adminRepository.GetAdminById();
                 if (list == null || list.Count == 0)
                 {
-                    throw new AdminNotFoundException($"Admin with ID {id} was not found.");
+                    //Console.ForegroundColor = ConsoleColor.DarkRed;
+                    throw new AdminNotFoundException($"Admin not found.");
+                    //Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 foreach (Admin admin in list)
@@ -68,15 +79,21 @@ namespace CarConnect.Service
             }
             catch (AdminNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input. Please enter a valid AdminId.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -90,7 +107,9 @@ namespace CarConnect.Service
                 List<Admin> list = _adminRepository.GetAdminByUsername(username);
                 if (list == null || list.Count == 0)
                 {
+                   
                     throw new AdminNotFoundException($"No admins found with username {username}.");
+                    
                 }
 
                 foreach (Admin admin in list)
@@ -100,11 +119,16 @@ namespace CarConnect.Service
             }
             catch (AdminNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
+
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -155,30 +179,51 @@ namespace CarConnect.Service
                     throw new InvalidInputException("Role is required");
 
                 Console.WriteLine("Enter the JoinDate");
-                admin.JoinDate = DateTime.Parse(Console.ReadLine());
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                if(date > DateTime.Now)
+                {
+                    throw new InvalidDateException("Date Should be Less than the Todays Date");
+                }
+                admin.JoinDate = date;
 
                 int result = _adminRepository.RegisterAdmin(admin);
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Registration successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Registration not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (InvalidInputException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch(InvalidDateException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
@@ -233,30 +278,52 @@ namespace CarConnect.Service
                     throw new InvalidInputException("Role is required");
 
                 Console.WriteLine("Enter the Updated JoinDate");
-                admin.JoinDate = DateTime.Parse(Console.ReadLine());
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                if (date > DateTime.Now)
+                {
+                    throw new InvalidDateException("Date Should be Less than the Todays Date");
+                }
+                admin.JoinDate = date;
 
                 int result = _adminRepository.UpdateAdmin(admin);
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Update successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Update not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (InvalidInputException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (InvalidDateException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
+
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

@@ -20,7 +20,11 @@ namespace CarConnect.CarConnectApp
             {
 
                 bool flag1 = true;
-                Console.WriteLine("----------------------------Welcome to the TechShop Menu-----------------------");
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.WriteLine("-*-*-*-*-*-*-*-*-*-Welcome to the CarConncet AdminMenu-*-*-*-*-*-*-*-*-*-");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+
                 Console.WriteLine("1.CustomerService\n2.VehicleService\n3.ReservationService\n4.AdminService\n5.ReportGenerator\n6.Logout");
                 Console.WriteLine("Choose any One Option");
                 int input = int.Parse(Console.ReadLine());
@@ -30,8 +34,9 @@ namespace CarConnect.CarConnectApp
 
                         while (flag1)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Welcome to the CustomerService");
-                            Console.WriteLine("1.GetCustomerById\n2.GetCustomerByUsername\n3.RegisterCustomer\n4.UpdateCustomer\n5.DeleteCustomer\n6.Back to MainMenu");
+                            Console.WriteLine("1.GetCustomerAllCustomers\n2.GetCustomerByUsername\n3.RegisterCustomer\n4.UpdateCustomer\n5.DeleteCustomer\n6.Back to MainMenu");
                             Console.WriteLine("Choose any One Option");
                             int input1 = int.Parse(Console.ReadLine());
                             switch (input1)
@@ -65,8 +70,9 @@ namespace CarConnect.CarConnectApp
                     case 2:
                         while (flag1)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Welcome to the Vehicle Service");
-                            Console.WriteLine("1.GetVehicleById\n2.GetAvilableVehicles\n3.AddVehicle\n4.UpdateVehicle\n5.RemoveVehicle\n6.Back To Main Menu");
+                            Console.WriteLine("1.GetVehicleAllVehicles\n2.GetAvilableVehicles\n3.AddVehicle\n4.UpdateVehicle\n5.RemoveVehicle\n6.Back To Main Menu");
                             Console.WriteLine("Choose any One Option");
                             int input1 = int.Parse(Console.ReadLine());
                             switch (input1)
@@ -99,8 +105,9 @@ namespace CarConnect.CarConnectApp
                     case 3:
                         while (flag1)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Welcome to the Reservation Service");
-                            Console.WriteLine("1.GetReservationById\n2.GetReservtionsByCustomerId\n3.CreateReservation\n4.UpdateReservation\n5.CancelReservation\n6.Back To MainMenu");
+                            Console.WriteLine("1.GetAllReservations\n2.GetReservtionsByCustomerId\n3.CreateReservation\n4.UpdateReservation\n5.CancelReservation\n6.Back To MainMenu");
                             Console.WriteLine("Choose any One Option");
                             int input1 = int.Parse(Console.ReadLine());
                             switch (input1)
@@ -135,8 +142,9 @@ namespace CarConnect.CarConnectApp
                     case 4:
                         while (flag1)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Welcome to the AdminService");
-                            Console.WriteLine("1.GetAdminById\n2.GetAdminByUserName\n3.RegisterAdmin\n4.UpdateAdmin\n5.DeleteAdmin\n6.Back to MainMenu");
+                            Console.WriteLine("1.GetAllAdmins\n2.GetAdminByUserName\n3.RegisterAdmin\n4.UpdateAdmin\n5.DeleteAdmin\n6.Back to MainMenu");
                             Console.WriteLine("Choose any One Option");
                             int input1 = int.Parse(Console.ReadLine());
                             switch (input1)
@@ -170,6 +178,7 @@ namespace CarConnect.CarConnectApp
                     case 5:
                         while (flag1)
                         {
+                            Console.WriteLine();
                             bool flag2 = true;
                             Console.WriteLine("Welcome to the Report Generator");
                             Console.WriteLine("1.Reservation History Report\n2.Vehicle Utilization Report\n3.Revenue Report\n4.Back to MainMEnu");

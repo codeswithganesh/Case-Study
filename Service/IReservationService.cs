@@ -10,12 +10,14 @@ namespace CarConnect.Service
     internal interface IReservationService
     {
         public void GetReservationById();
+        public void GetReservations();
         public void GetReservationsByCustomerId();
 
         public void CreateReservation();
+        public void CreateReservationAuto();
 
         public void UpdateReservation();
-
+        public void GetReservationsByCustomerIdAuto();
         public void CancelReservation();
     }
 }

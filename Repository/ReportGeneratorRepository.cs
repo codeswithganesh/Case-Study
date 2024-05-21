@@ -19,6 +19,7 @@ namespace CarConnect.Repository
         }
         public List<Object[]> ReservationHistoryBCustomer(string username)
         {
+            cmd.Parameters.Clear();
             List<Object[]> list = new List<object[]>();
             cmd.CommandText = @"select concat(FirstName,' ',LastName) as Name,Model,StartDate,EndDate,TotalCost,Status from Reservation join
             Customer on Reservation.CustomerId=Customer.CustomerId
@@ -45,12 +46,14 @@ namespace CarConnect.Repository
                 list.Add(reservationInfo);
 
             }
-            return list;
             sqlConnection.Close();
+            return list;
+            
         }
 
         public List<Object[]> ReservationHistoryBModel(string model)
         {
+            cmd.Parameters.Clear();
             List<Object[]> list = new List<object[]>();
             cmd.CommandText = @"select concat(FirstName,' ',LastName) as Name,Model,StartDate,EndDate,TotalCost,Status from Reservation join
             Customer on Reservation.CustomerId=Customer.CustomerId
@@ -114,6 +117,7 @@ namespace CarConnect.Repository
 
         public List<Object[]> RevenueReport()
         {
+            cmd.Parameters.Clear();
             List<Object[]> list = new List<object[]>();
             cmd.CommandText = @"select Model,sum(TotalCost) as cost from Reservation
             join Vehicle
@@ -139,6 +143,7 @@ namespace CarConnect.Repository
 
         public List<Object[]> VehicleUtilizationReport()
         {
+            cmd.Parameters.Clear();
             List<Object[]> list = new List<object[]>();
 
             using (SqlCommand cmd = new SqlCommand())

@@ -21,13 +21,15 @@ namespace CarConnect.Service
         {
             try
             {
-                Console.WriteLine("Enter the VehicleId");
-                int id = int.Parse(Console.ReadLine());
-                List<Vehicle> list = _vehicleRepository.GetVehicleById(id);
+                
+                List<Vehicle> list = _vehicleRepository.GetVehicleById();
 
                 if (list == null || list.Count == 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+
                     Console.WriteLine("No vehicle found with the given ID.");
+                    Console.ForegroundColor = ConsoleColor.White;
                     return;
                 }
 
@@ -38,15 +40,21 @@ namespace CarConnect.Service
             }
             catch (VehicleNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter a valid VehicleId.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
         public void GetAvailableVehicles()
@@ -57,7 +65,9 @@ namespace CarConnect.Service
 
                 if (list == null || list.Count == 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("No available vehicles found.");
+                    Console.ForegroundColor = ConsoleColor.White;
                     return;
                 }
 
@@ -68,11 +78,15 @@ namespace CarConnect.Service
             }
             catch (VehicleNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
         }
@@ -88,7 +102,13 @@ namespace CarConnect.Service
                 Console.WriteLine("Enter the Make");
                 vehicle.Make = Console.ReadLine();
                 Console.WriteLine("Enter the Year in YYYY-MM-DD format");
-                vehicle.Year = DateTime.Parse(Console.ReadLine());
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                if (date >= DateTime.Now)
+                {
+                    throw new InvalidDateException("Date Should be Less than the Todays Date");
+                }
+
+                vehicle.Year = date;
                 Console.WriteLine("Enter the Color");
                 vehicle.Color = Console.ReadLine();
                 Console.WriteLine("Enter the Registration Number");
@@ -102,20 +122,34 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("AddVehicle successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("AddVehicle not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (InvalidDateException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
 
@@ -134,7 +168,13 @@ namespace CarConnect.Service
                 Console.WriteLine("Enter the updated Make");
                 vehicle.Make = Console.ReadLine();
                 Console.WriteLine("Enter the updated Year in YYYY-MM-DD format");
-                vehicle.Year = DateTime.Parse(Console.ReadLine());
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                if (date >= DateTime.Now)
+                {
+                    throw new InvalidDateException("Date Should be Less than the Todays Date");
+                }
+
+                vehicle.Year = date;
                 Console.WriteLine("Enter the updated Color");
                 vehicle.Color = Console.ReadLine();
                 Console.WriteLine("Enter the updated Registration Number");
@@ -148,24 +188,41 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("UpdateVehicle successful");
+                    Console.ForegroundColor = ConsoleColor.White;
+
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("UpdateVehicle not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (VehicleNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (InvalidDateException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter the correct data.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
         }
@@ -179,24 +236,34 @@ namespace CarConnect.Service
 
                 if (result > 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Remove Vehicle successful");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Remove Vehicle not successful, please try again later");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (VehicleNotFoundException ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Invalid input format. Please enter a valid VehicleId.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

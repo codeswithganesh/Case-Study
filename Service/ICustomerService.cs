@@ -8,7 +8,7 @@ namespace CarConnect.Service
         public void GetCustomerByUsername();
         public void RegisterCustomer();
         public void UpdateCustomer();
-
+        public void UpdateCustomerAuto();
         public void DeleteCustomer();
         
     }

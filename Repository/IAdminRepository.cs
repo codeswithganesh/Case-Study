@@ -6,7 +6,7 @@ namespace CarConnect.Repository
 {
     internal interface IAdminRepository
     {
-        public List<Admin> GetAdminById(int adminId);
+        public List<Admin> GetAdminById();
         public List<Admin> GetAdminByUsername(string username);
 
         public int RegisterAdmin(Admin admin);

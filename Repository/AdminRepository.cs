@@ -22,6 +22,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                _cmd.Parameters.Clear();
                 _cmd.CommandText = "DELETE FROM Admin WHERE AdminId = @id";
                 _cmd.Parameters.AddWithValue("@id", adminId);
                 _cmd.Connection = _sqlConnection;
@@ -39,13 +40,14 @@ namespace CarConnect.Repository
             }
         }
 
-        public List<Admin> GetAdminById(int adminId)
+        public List<Admin> GetAdminById()
         {
             try
             {
+                _cmd.Parameters.Clear();
                 List<Admin> lAdmin = new List<Admin>();
-                _cmd.CommandText = "SELECT * FROM Admin WHERE AdminId = @adminid";
-                _cmd.Parameters.AddWithValue("@adminid", adminId);
+                _cmd.CommandText = "SELECT * FROM Admin";
+                
                 _cmd.Connection = _sqlConnection;
                 _sqlConnection.Open();
                 SqlDataReader reader = _cmd.ExecuteReader();
@@ -53,6 +55,7 @@ namespace CarConnect.Repository
                 {
                     Admin admin = new Admin
                     {
+
                         AdminID = (int)reader["AdminId"],
                         FirstName = (string)reader["FirstName"],
                         LastName = (string)reader["LastName"],
@@ -81,6 +84,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                _cmd.Parameters.Clear();
                 List<Admin> lAdmin = new List<Admin>();
                 _cmd.CommandText = "SELECT * FROM Admin WHERE UserName = @username";
                 _cmd.Parameters.AddWithValue("@username", username);
@@ -119,6 +123,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                _cmd.Parameters.Clear();
                 _cmd.CommandText = "INSERT INTO Admin VALUES (@firstname, @lastname, @email, @phno, @username, @password, @role, @joindate)";
                 _cmd.Parameters.AddWithValue("@firstname", admin.FirstName);
                 _cmd.Parameters.AddWithValue("@lastname", admin.LastName);
@@ -147,6 +152,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                _cmd.Parameters.Clear();
                 _cmd.CommandText = "UPDATE Admin SET FirstName = @firstname, LastName = @lastname, Email = @email, PhoneNumber = @phno, UserName = @username, Password = @password, Role = @role, JoinDate = @joindate WHERE AdminId = @id";
                 _cmd.Parameters.AddWithValue("@id", admin.AdminID);
                 _cmd.Parameters.AddWithValue("@firstname", admin.FirstName);

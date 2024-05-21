@@ -16,13 +16,18 @@ namespace CarConnect.CarConnectApp
             bool flag = true;
             while(flag)
             {
-                Console.WriteLine("************Welcome to the CarConncetPlatform**************");
+                Console.ForegroundColor= ConsoleColor.DarkYellow;
+                Console.WriteLine("*=*=*=*=*=*=*Welcome to the CarConncetPlatform*=*=*=*=*=*=*");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("1.Admin\n2.Customer\n3.Exit App");
+                //Console.Clear();
+                Console.WriteLine("Enter your Choice ");
                 int input=int.Parse(Console.ReadLine());
                 switch(input)
                 {
                     case 1:
                         Console.WriteLine("1.Admin Login\t2.Register");
+                        Console.WriteLine("Enter your Choice");
                         int input1 = int.Parse(Console.ReadLine());
                         if(input1 == 1)
                         {
@@ -38,6 +43,7 @@ namespace CarConnect.CarConnectApp
                     break;
                     case 2:
                         Console.WriteLine("1.Customer Login\t2.Register");
+                        Console.WriteLine("Enter your Choice");
                         int input2 = int.Parse(Console.ReadLine());
                         if (input2 == 1)
                         {

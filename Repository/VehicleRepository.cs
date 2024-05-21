@@ -25,13 +25,14 @@ namespace CarConnect.Repository
             }
         }
 
-        public List<Vehicle> GetVehicleById(int vehicleId)
+        public List<Vehicle> GetVehicleById()
         {
             try
             {
+                cmd.Parameters.Clear();
                 List<Vehicle> lvehicles = new List<Vehicle>();
-                cmd.CommandText = "select * from Vehicle where VehicleId=@id";
-                cmd.Parameters.AddWithValue("@id", vehicleId);
+                cmd.CommandText = "select * from Vehicle";
+                //cmd.Parameters.AddWithValue("@id", vehicleId);
                 cmd.Connection = sqlConnection;
                 sqlConnection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -52,7 +53,7 @@ namespace CarConnect.Repository
 
                 if (lvehicles.Count == 0)
                 {
-                    throw new VehicleNotFoundException($"Vehicle with ID {vehicleId} was not found.");
+                    throw new VehicleNotFoundException($"Vehicles was not found.");
                 }
 
                 return lvehicles;
@@ -68,6 +69,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 List<Vehicle> lvehicles = new List<Vehicle>();
                 cmd.CommandText = "select * from Vehicle";
                 cmd.Connection = sqlConnection;
@@ -100,6 +102,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 List<Vehicle> avilableVehicles = new List<Vehicle>();
                 cmd.CommandText = "select * from Vehicle where Availability=1";
                 cmd.Connection = sqlConnection;
@@ -132,6 +135,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 cmd.CommandText = "insert into Vehicle values(@model,@make,@year,@color,@rnumber,@avilability,@dailyrate);";
                 cmd.Parameters.AddWithValue("@model", vehicle.Model);
                 cmd.Parameters.AddWithValue("@make", vehicle.Make);
@@ -157,6 +161,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 cmd.CommandText = "update Vehicle set Model=@model,Make=@make,Year=@year,Color=@color,RegistrationNumber=@rnumber,Availability=@avail,DailyRate=@dailyrate where VehicleId=@id";
                 cmd.Parameters.AddWithValue("@id", vehicle.VehicleID);
                 cmd.Parameters.AddWithValue("@model", vehicle.Model);
@@ -189,6 +194,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 cmd.CommandText = "delete from Vehicle where VehicleId=@id";
                 cmd.Parameters.AddWithValue("@id", vehicleId);
                 cmd.Connection = sqlConnection;
@@ -213,6 +219,7 @@ namespace CarConnect.Repository
         {
             try
             {
+                cmd.Parameters.Clear();
                 List<int> vehicles = new List<int>();
                 cmd.CommandText = "Select VehicleId from Vehicle where Availability=1";
                 cmd.Connection = sqlConnection;

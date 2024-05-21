@@ -9,7 +9,7 @@ namespace CarConnect.Repository
 {
     public  interface IVehicleRepository
     {
-        public List<Vehicle> GetVehicleById(int vehicleId);
+        public List<Vehicle> GetVehicleById();
         public List<Vehicle> GetAvailableVehicles();
 
         public int AddVehicle(Vehicle vehicleData);

@@ -12,7 +12,8 @@ namespace CarConnect.Service
 {
     public class AuthenticationService
     {
-     
+        CustomerRepository customerRepository = new CustomerRepository();
+        public static int customerId;
         readonly AuthenticationRepository _repository;
         public AuthenticationService()
         {
@@ -33,6 +34,8 @@ namespace CarConnect.Service
                 {
                     //Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine($"Welcome {username}");
+                    customerId = customerRepository.GetCustomerId(username);
+                    Console.WriteLine(customerId);
                     menu.RunCustomer();
                 }
                 else

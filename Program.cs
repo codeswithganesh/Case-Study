@@ -8,13 +8,6 @@ namespace CarConnect
     {
         static void Main(string[] args)
         {
-            //ReservationService service = new ReservationService();
-            //service.GetReservationsByCustomerId();
-
-
-            //ReservationRepository repository = new ReservationRepository();
-
-
             CarConncetApplication car = new CarConncetApplication();
             car.Run();
         }
